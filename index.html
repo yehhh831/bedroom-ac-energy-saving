@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="卧室空调怎么开最省电？基于睡眠实验、现场实测和 ASHRAE 标准的 18 条参考文献，给你一套能直接照做的方案。">
+<meta name="theme-color" content="#0f766e">
+<meta property="og:title" content="卧室空调省电指南｜有实验依据版">
+<meta property="og:description" content="26–28°C + 风扇/薄被，别开 22–24°C。18 条论文与实验出处，附一晚流程和 3 晚自测法。">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_CN">
+
+<title>卧室空调省电指南｜有实验依据版</title>
+<style>
+  :root{
+    --ink:#1f2933;
+    --muted:#5f6b7a;
+    --paper:#f7f5ef;
+    --card:#ffffff;
+    --teal:#0f766e;
+    --teal-dark:#115e59;
+    --teal-soft:#ccfbf1;
+    --amber:#f59e0b;
+    --amber-soft:#fff7e6;
+    --red:#b91c1c;
+    --red-soft:#fef2f2;
+    --blue:#1d4ed8;
+    --blue-soft:#eff6ff;
+    --line:#e5e0d5;
+    --radius:18px;
+    --shadow:0 6px 24px rgba(31,41,51,.06);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+    font-size:17px;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--teal);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+  a:hover{color:var(--teal-dark)}
+  sup a{text-decoration:none;font-size:12px;padding:0 2px}
+
+  /* 顶部导航 */
+  .topnav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(247,245,239,.92);
+    backdrop-filter:saturate(180%) blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1060px;margin:0 auto;padding:10px 20px;
+    display:flex;gap:8px;align-items:center;overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .nav-inner::-webkit-scrollbar{display:none}
+  .nav-inner a{
+    flex:0 0 auto;text-decoration:none;color:var(--muted);
+    font-size:14px;padding:6px 12px;border-radius:999px;white-space:nowrap;
+  }
+  .nav-inner a:hover{background:#efece3;color:var(--ink)}
+  .nav-inner .brand{
+    font-weight:800;color:var(--teal);margin-right:8px;
+    letter-spacing:.02em;white-space:nowrap;flex:0 0 auto;
+  }
+
+  /* 头部 */
+  .hero{
+    max-width:1060px;margin:24px auto 0;padding:46px 46px 40px;
+    background:linear-gradient(135deg,#0f766e 0%,#115e59 60%,#134e4a 100%);
+    color:#fff;border-radius:28px;position:relative;overflow:hidden;
+    box-shadow:0 18px 50px rgba(15,118,110,.22);
+  }
+  .hero::after{
+    content:"";position:absolute;right:-90px;top:-90px;width:320px;height:320px;
+    background:radial-gradient(circle,rgba(255,255,255,.16),transparent 70%);
+    border-radius:50%;
+  }
+  .hero .kicker{
+    font-size:13px;letter-spacing:.18em;text-transform:uppercase;
+    color:#99f6e4;font-weight:700;margin-bottom:12px;
+  }
+  .hero h1{
+    margin:0 0 14px;font-size:clamp(30px,5vw,48px);
+    line-height:1.15;letter-spacing:-.02em;
+  }
+  .hero .lead{
+    margin:0;font-size:clamp(17px,2vw,20px);line-height:1.65;
+    color:#e6fffa;max-width:780px;
+  }
+  .hero .lead b{color:#fff;background:none;padding:0;border-bottom:2px solid #99f6e4}
+  .stat-row{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px;
+    position:relative;z-index:1;
+  }
+  .stat{
+    background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);
+    border-radius:16px;padding:16px 18px;
+  }
+  .stat b{display:block;font-size:clamp(26px,3vw,36px);line-height:1.1;letter-spacing:-.02em}
+  .stat span{display:block;font-size:13.5px;color:#ccfbf1;margin-top:6px;line-height:1.45}
+  .hero .note{
+    margin:18px 0 0;font-size:12.5px;color:#99f6e4;
+  }
+
+  /* 主体 */
+  main{max-width:1060px;margin:0 auto;padding:0 20px 80px}
+  section{margin:46px 0;scroll-margin-top:76px}
+  h2{
+    font-size:clamp(23px,3vw,29px);line-height:1.3;margin:0 0 18px;
+    padding-left:14px;border-left:6px solid var(--teal);letter-spacing:-.01em;
+  }
+  h3{font-size:19px;margin:26px 0 10px;line-height:1.4}
+  p{margin:0 0 14px}
+  .muted{color:var(--muted)}
+  .small{font-size:14px;line-height:1.65}
+
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px 26px;box-shadow:var(--shadow);
+  }
+  .card + .card{margin-top:16px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+
+  .callout{
+    background:var(--amber-soft);border-left:5px solid var(--amber);
+    border-radius:0 14px 14px 0;padding:16px 18px;margin:18px 0;
+  }
+  .callout b{color:#92400e}
+  .callout p:last-child{margin-bottom:0}
+  .warn{
+    background:var(--red-soft);border-left:5px solid var(--red);
+    border-radius:0 14px 14px 0;padding:16px 18px;margin:18px 0;
+  }
+  .warn b{color:var(--red)}
+  .info{
+    background:#f0fdfa;border-left:5px solid var(--teal);
+    border-radius:0 14px 14px 0;padding:16px 18px;margin:18px 0;
+  }
+
+  .badge{
+    display:inline-block;font-size:12px;line-height:1.4;padding:2px 9px;
+    border-radius:999px;white-space:nowrap;font-weight:700;vertical-align:2px;
+    background:#e6fffa;color:var(--teal);border:1px solid #99f6e4;
+  }
+  .badge.blue{background:var(--blue-soft);color:var(--blue);border-color:#bfdbfe}
+  .badge.amber{background:#fefce8;color:#a16207;border-color:#fde68a}
+  .badge.red{background:var(--red-soft);color:var(--red);border-color:#fecaca}
+  .badge.gray{background:#f3f4f6;color:#4b5563;border-color:#e5e7eb}
+
+  ul,ol{margin:0 0 14px;padding-left:1.3em}
+  li{margin:7px 0}
+  li::marker{color:var(--teal)}
+
+  /* 清单 */
+  .checklist{list-style:none;padding:0;margin:0;counter-reset:item}
+  .checklist li{
+    counter-increment:item;position:relative;padding:12px 0 12px 46px;
+    border-bottom:1px dashed #e8e3d8;margin:0;
+  }
+  .checklist li:last-child{border-bottom:none}
+  .checklist li::before{
+    content:counter(item);position:absolute;left:0;top:12px;
+    width:28px;height:28px;border-radius:50%;background:var(--teal);color:#fff;
+    font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;
+  }
+  .checklist b{color:var(--teal-dark)}
+
+  /* 表格 */
+  .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:#fff}
+  table{width:100%;border-collapse:collapse;font-size:15px;min-width:620px}
+  th{
+    text-align:left;padding:12px 14px;background:#f0fdfa;color:var(--teal-dark);
+    border-bottom:2px solid var(--teal-soft);font-size:13.5px;letter-spacing:.02em;
+  }
+  td{padding:12px 14px;border-bottom:1px solid #eee9df;vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  tbody tr:hover{background:#fcfbf7}
+  td b{color:var(--ink)}
+
+  /* 时间线 */
+  .timeline{border-left:3px solid #99f6e4;margin:10px 0 0 10px;padding-left:26px}
+  .timeline .item{position:relative;margin-bottom:22px}
+  .timeline .item:last-child{margin-bottom:0}
+  .timeline .item::before{
+    content:"";position:absolute;left:-35px;top:7px;width:14px;height:14px;
+    border-radius:50%;background:var(--teal);border:3px solid var(--teal-soft);
+  }
+  .timeline .time{font-size:13px;font-weight:800;color:var(--teal);letter-spacing:.03em}
+  .timeline .what{font-weight:700;margin:1px 0 2px}
+  .timeline .why{font-size:14px;color:var(--muted);line-height:1.6}
+
+  /* 引用 */
+  .refs{padding-left:1.4em}
+  .refs li{margin:10px 0;font-size:14px;line-height:1.65}
+  details{
+    background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:14px 18px;margin-top:12px;
+  }
+  summary{cursor:pointer;font-weight:800;color:var(--teal);outline:none}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:"＋ ";font-weight:800}
+  details[open] summary::before{content:"－ "}
+
+  .tagrow{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+  .tag{
+    font-size:12.5px;padding:4px 10px;border-radius:999px;background:#f3f4f6;
+    color:#4b5563;border:1px solid #e5e7eb;
+  }
+
+  footer{
+    max-width:1060px;margin:0 auto;padding:28px 20px 60px;
+    border-top:1px solid var(--line);color:var(--muted);font-size:13.5px;line-height:1.7;
+  }
+  .backtop{
+    position:fixed;right:22px;bottom:22px;z-index:40;
+    width:44px;height:44px;border-radius:50%;border:1px solid var(--line);
+    background:#fff;color:var(--teal);font-size:20px;cursor:pointer;
+    box-shadow:0 8px 24px rgba(31,41,51,.12);
+    display:flex;align-items:center;justify-content:center;text-decoration:none;
+  }
+  .backtop:hover{background:#f0fdfa}
+
+  @media (max-width:820px){
+    .grid2,.grid3{grid-template-columns:1fr}
+    .stat-row{grid-template-columns:1fr}
+    .hero{margin:14px 12px 0;padding:30px 24px 26px;border-radius:22px}
+    main{padding:0 14px 60px}
+    section{margin:36px 0}
+    .card{padding:20px}
+    .nav-inner{padding:8px 12px}
+  }
+  @media print{
+    .topnav,.backtop{display:none!important}
+    body{background:#fff;font-size:10.5pt;line-height:1.55}
+    .hero{box-shadow:none;margin:0 0 16px;padding:26px 30px 22px;border-radius:0;background:#0f766e!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .hero h1{font-size:28pt}
+    .hero .lead{font-size:11.5pt}
+    .stat-row{gap:8px;margin-top:16px}
+    .stat{padding:10px 12px}
+    .stat b{font-size:20pt}
+    .card{box-shadow:none;break-inside:auto;padding:14px 16px}
+    .grid2{grid-template-columns:repeat(2,1fr)}
+    .grid3{grid-template-columns:repeat(3,1fr)}
+    section{break-inside:auto;margin:22px 0}
+    h2{break-after:avoid;font-size:17pt}
+    h3{break-after:avoid}
+    .timeline .item,.stat,tr{break-inside:avoid}
+    table{font-size:9pt}
+    .table-wrap{overflow:visible}
+    a{color:#0f766e}
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav" aria-label="页面目录">
+  <div class="nav-inner">
+    <span class="brand">空调省电</span>
+    <a href="#quick">一分钟版</a>
+    <a href="#temp">温度</a>
+    <a href="#fan">风扇</a>
+    <a href="#room">房间</a>
+    <a href="#clean">清洗</a>
+    <a href="#device">设备</a>
+    <a href="#night">一晚流程</a>
+    <a href="#test">自测</a>
+    <a href="#myths2">辟谣</a>
+    <a href="#refs">文献</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="kicker">Bedroom AC · Evidence First</div>
+  <h1>卧室空调省电指南</h1>
+  <p class="lead">
+    只写论文和实验里验证过的做法。不推销产品，不玩“26°C 玄学”。
+    一句话：<b>把空调调到“你还能睡好”的最高温度，通常是 26–28°C；再用风扇和薄被补舒服。</b>
+    别把卧室开到 22–24°C。
+  </p>
+
+  <div class="stat-row">
+    <div class="stat">
+      <b>39%</b>
+      <span>温度调高 3°C + 凉感床品<br>20 人现场实验，平均功率下降</span>
+    </div>
+    <div class="stat">
+      <b>36%</b>
+      <span>99 台吊扇 + 空调联动<br>压缩机能耗下降（按面积归一化）</span>
+    </div>
+    <div class="stat">
+      <b>42%</b>
+      <span>成都卧室加内保温<br>日制冷能耗平均下降（改造措施）</span>
+    </div>
+  </div>
+  <p class="note">数字都有出处，见文末文献。省多少取决于你家气候、房间、机器和使用习惯，不是承诺。</p>
+</header>
+
+<main>
+
+  <!-- 一分钟版 -->
+  <section id="quick">
+    <h2>先看一分钟版</h2>
+    <div class="card">
+      <ol class="checklist">
+        <li><b>温度：</b>入睡设 26°C，睡着后升到 27–28°C；别一晚上 22–24°C。</li>
+        <li><b>风扇：</b>低档、柔和风，0.3–0.6 m/s；吹人不吹头，和空调一起用。</li>
+        <li><b>遮阳：</b>白天拉窗帘，西晒窗重点；能外遮阳更好。</li>
+        <li><b>关门堵缝：</b>别让客厅热气、窗缝热风钻进卧室。</li>
+        <li><b>清洗：</b>滤网 2–4 周一次；外机冷凝器每年一次。</li>
+        <li><b>外机：</b>周围留空，别用罩子围死；遮阳可以，但不能挡风。</li>
+        <li><b>人走：</b>离开超过 1 小时，关机或把温度调高。</li>
+        <li><b>别设 16°C：</b>不会降温更快，只会更费电。</li>
+        <li><b>除湿模式：</b>不是万能省电键，别默认开。</li>
+        <li><b>自测：</b>用 3 个晚上，找到你自己的“最高舒适温度”。</li>
+      </ol>
+    </div>
+
+    <div class="callout">
+      <p><b>翻译成人话：</b>空调最费电的地方，不是“风不够冷”，而是你把房间搞得太冷。每往下压 1°C，都是在跟外面的热空气硬碰硬。把温度抬上来、用风扇补体感，才是顺着物理规律省电。</p>
+    </div>
+
+    <div class="info">
+      <p><b>一句话原理：</b>空调不是“制造冷气”，而是把室内的热搬到室外。室内外温差越大，搬起来越费劲；把设定温度抬高、让风对着人吹，就是让“搬热”这件事变轻松。</p>
+    </div>
+  </section>
+
+  <!-- 三个误会 -->
+  <section id="myths">
+    <h2>先破除三个最常见的误会</h2>
+
+    <div class="grid3">
+      <div class="card">
+        <h3>“26°C 最省电？”</h3>
+        <p><b>不准确。</b>26°C 是 2007 年国务院对<b>公共建筑</b>的夏季下限要求，不是卧室实验得出的最优温度。该通知对家庭只是“倡导合理控制”，没给具体数字。<sup><a href="#ref16">[16]</a></sup></p>
+        <p class="small muted">卧室实验里，22.2–28.2°C 都有人觉得能睡；26°C 只是某个实验条件下的中性点。</p>
+      </div>
+
+      <div class="card">
+        <h3>“16°C 降温更快？”</h3>
+        <p><b>错。</b>设定温度是“目标”，不是“油门”。空调的制冷能力由压缩机和换热器决定，设 16°C 不会让它变强，只会让它更晚停机。</p>
+        <p class="small muted">结果：更费电、更容易过冷，降温速度并不会更快。</p>
+      </div>
+
+      <div class="card">
+        <h3>“风扇能把房间吹凉？”</h3>
+        <p><b>错。</b>风扇吹凉的是你的皮肤，不是房间空气；它本身还会发热。</p>
+        <p class="small muted">但用几十瓦的风扇换 1–2°C 的设定温度，非常划算。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 温度 -->
+  <section id="temp">
+    <h2>🌙 温度：为什么是 26–28°C，而不是 22–24°C</h2>
+
+    <div class="card">
+      <p>先看三个实验，都是“真人睡在卧室里”的研究：</p>
+
+      <h3>实验一：27°C + 风扇，睡眠效果不输 24°C 空调</h3>
+      <p>香港理工大学 2025 年，15 名健康成年人，自身对照：一晚睡“机械风扇”卧室，一晚睡“空调”卧室。风扇房室温 <b>27.2°C</b>，空调房 <b>24.4°C</b>。</p>
+      <ul>
+        <li>睡眠时长：507 分钟 vs 522 分钟（p=0.33，没显著差异）</li>
+        <li>主观睡眠质量：13.1 vs 12.8（p=0.80，没显著差异）</li>
+        <li>热可接受度：两组都是 1（可接受）</li>
+      </ul>
+      <p>实验还观察到 <b>22.2–28.2°C</b> 的宽舒适区间。模拟把设定点从 22°C 升到 28°C，需要制冷的夜晚从 65% 降到 23%，制冷能耗最多可省约 <b>95%</b>——注意，这是模拟上限，不是实测。<sup><a href="#ref1">[1]</a></sup></p>
+
+      <h3>实验二：调高 3°C + 凉感床品，省 39%</h3>
+      <p>马来西亚 2021 年，20 名受试者，湿热气候。把空调设定温度比原来提高 3°C，同时用凉感床品。结果：平均空调功率下降 <b>0.16 kW</b>，能耗 <b>−39%</b>，热舒适和睡眠效率都维持住了。<sup><a href="#ref2">[2]</a></sup></p>
+
+      <h3>实验三：26°C 只是“中性点”，不是“最省电点”</h3>
+      <p>兰丽等 2014 年的睡眠舱实验，测了 23°C、26°C、30°C 三个温度。受试者盖 1.64 clo（约相当于较厚寝具），中性温度约 <b>26°C</b>。<sup><a href="#ref3">[3]</a></sup> 也就是说，26°C 是“不冷不热”的一个参考点，不是省电冠军。</p>
+
+      <p>再补两个背景：国标 GB/T 18883-2022 给的夏季舒适区间是 <b>22–28°C</b>、相对湿度 40–80%<sup><a href="#ref17">[17]</a></sup>；另一项覆盖七个城市的住宅模拟发现，设定温度只提高 <b>1°C</b>，节能效果在不同气候城市都显著，只是幅度不同<sup><a href="#ref15">[15]</a></sup>。所以“26–28°C”不是一个拍脑袋的数字，而是落在标准区间上沿、有多项实验支持的方向。</p>
+
+      <div class="callout">
+        <p><b>翻译成人话：</b>你盖厚被，空调就得低；你盖薄被或凉感床品，空调就可以高。决定舒不舒服的，是“床上的小气候”，不是墙上那个数字。怕热的人：先 26°C，睡前升 27°C；还热就开风扇，别降到 22°C。</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>那为什么有的论文说 18–22°C？</h3>
+      <p>2025 年一篇睡眠热环境综述指出，多数健康成年人的睡眠连续性在 <b>18–22°C</b> 较好，但最佳阈值随年龄、地区、季节变化。<sup><a href="#ref6">[6]</a></sup> 这跟 26–28°C 不矛盾：那些研究多在温带、盖更厚的寝具；在亚热带现场实验里，受试者会自动换薄被，27–28°C 也能接受。</p>
+      <p>所以更准确的说法是：<b>先看你的寝具和习惯，再把空调设到“不盖厚被也不出汗”的最高温度。</b>对多数中国南方卧室，这个值常落在 26–28°C。</p>
+      <div class="tagrow">
+        <span class="tag">老人、婴幼儿、孕妇、慢性病患者对高温更敏感，别为了省电硬扛</span>
+        <span class="tag">湿度 &gt;70% 时，风扇可能不够，空调的除湿仍然必要</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 风扇 -->
+  <section id="fan">
+    <h2>🌀 风扇：最便宜的“虚拟降温”</h2>
+
+    <div class="card">
+      <p>风扇不降低空气温度，它增加皮肤表面的散热。所以正确用法是：<b>把空调温度抬上去，用风扇把体感拉回来。</b></p>
+
+      <div class="grid2">
+        <div>
+          <h3>怎么做</h3>
+          <ul>
+            <li>吊扇或落地扇，低档，目标风速 <b>0.3–0.6 m/s</b>（大概是有微风、不觉得冲）。</li>
+            <li>不要长时间直吹脸和头；让风“扫过”身体更舒服。</li>
+            <li>和空调同时开，不要把风扇当空调用。</li>
+            <li>吊扇通常 2–30 W；普通落地扇几十瓦，仍远低于空调压缩机。</li>
+          </ul>
+        </div>
+        <div>
+          <h3>能顶多少度</h3>
+          <p>ASHRAE 55 的“提高风速（elevated air speed）”给出的等效关系：</p>
+          <ul>
+            <li>0.3 → 0.6 m/s：约 <b>+1.2°C</b></li>
+            <li>0.3 → 0.9 m/s：约 <b>+2.2°C</b></li>
+            <li>0.3 → 1.2 m/s：约 <b>+2.8°C</b></li>
+          </ul>
+          <p class="small muted">来源：de Dear 2011 / ASHRAE 55-2017。<sup><a href="#ref5">[5]</a></sup></p>
+        </div>
+      </div>
+
+      <h3>现场证据：99 台吊扇，压缩机能耗 −36%</h3>
+      <p>美国加州 10 栋建筑、29 个月、99 台自动吊扇 + 12 个温控器。让吊扇先转、空调后开，并把空调设定温度抬高。结果：按服务面积归一化的压缩机能耗 <b>−36%</b>，单台压缩机中位数 <b>−21%</b>；吊扇本身只要 2–30 W，能提供约 2–4°C 的等效降温。<sup><a href="#ref4">[4]</a></sup></p>
+      <p class="small muted">注意：这是商业/多户建筑现场，不能直接等同卧室；但风机功率量级和“气流降温”的机理是一样的。</p>
+    </div>
+  </section>
+
+  <!-- 房间 -->
+  <section id="room">
+    <h2>☀️ 房间：别让热进来，比让空调硬扛更划算</h2>
+
+    <div class="card">
+      <div class="grid2">
+        <div>
+          <h3>不花钱的</h3>
+          <ul>
+            <li><b>白天拉窗帘</b>，尤其是西晒窗；太阳落山前拉上。</li>
+            <li><b>关卧室门</b>，别让客厅的热空气串进来。</li>
+            <li><b>堵窗缝、门缝</b>；老窗户漏风是隐形热源。</li>
+            <li>关掉卧室里不必要的热源：电脑、路由器、灯。</li>
+          </ul>
+        </div>
+        <div>
+          <h3>花一点钱的</h3>
+          <ul>
+            <li>厚窗帘、遮光帘；窗户隔热膜。</li>
+            <li>外遮阳（比内遮阳更有效，因为热在进窗前就被挡住）。</li>
+            <li>门底密封条、窗户密封条。</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>实测：成都卧室加内保温，制冷能耗 −42%</h3>
+      <p>成都两套同样户型的住宅，其中一套南卧室在 2017 年加做内保温。2019 年 8 月对比实测：南卧室日制冷能耗平均 <b>−42.09%</b>，最大 <b>−48.91%</b>。<sup><a href="#ref10">[10]</a></sup></p>
+      <p class="small muted">这是改造措施，不是“使用技巧”；但说明围护结构对卧室空调能耗的影响非常大。租房不能改造，就用窗帘、隔热膜、密封条做低成本替代。</p>
+    </div>
+  </section>
+
+  <!-- 清洗 -->
+  <section id="clean">
+    <h2>🧹 清洗：外机冷凝器，比滤网更值得洗</h2>
+
+    <div class="card">
+      <p>这是最容易被夸大的部分。实验数据其实很分化：</p>
+
+      <h3>外机冷凝器脏了，是真的费电</h3>
+      <p>微通道冷凝器在高粉尘工厂环境运行 3 个月：</p>
+      <ul>
+        <li>能耗增加 <b>52.5%</b>（百叶翅片）和 <b>28.4%</b>（波纹翅片）</li>
+        <li>能效比 COP 下降 <b>49.5%</b> 和 <b>35.6%</b></li>
+      </ul>
+      <p class="small muted">这是极端粉尘条件，家用外机不会这么快，但方向一致：冷凝器越脏，压缩机越吃力。<sup><a href="#ref7">[7]</a></sup></p>
+
+      <h3>普通家用蒸发器积灰，影响通常没你想的大</h3>
+      <p>劳伦斯伯克利实验室的经典研究：普通家用蒸发器盘管积灰，典型情况下能效比 EER 和制冷能力下降 <b>&lt;5%</b>；边缘系统或极端条件才会更大。滤网效率、滤网旁通、盘管设计都会影响积灰速度。<sup><a href="#ref8">[8]</a></sup></p>
+
+      <div class="warn">
+        <p><b>所以，别信“洗滤网省 20–30%”这种话。</b>滤网要洗，但它的主要作用是维持风量、防止盘管积灰；真正容易造成大幅能耗上升的，是外机冷凝器被灰尘、柳絮、油污堵住。</p>
+      </div>
+
+      <h3>怎么做</h3>
+      <ul>
+        <li><b>滤网：</b>夏季每 2–4 周洗一次；灰尘大的环境更勤。</li>
+        <li><b>外机冷凝器：</b>每年清洗一次；请专业人员，别用高压水枪乱冲翅片。</li>
+        <li><b>外机周围：</b>留 50 cm 以上空间，不要用百叶箱、罩子围死。</li>
+        <li><b>遮阳可以，但不能挡风。</b>科威特的实验发现，给外机遮阳但形成封闭空间时，热空气滞留，功耗反而增加。<sup><a href="#ref14">[14]</a></sup></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 设备 -->
+  <section id="device">
+    <h2>❄️ 设备：变频、容量，以及“别设 16°C”</h2>
+
+    <div class="card">
+      <h3>变频机，部分负荷时更省</h3>
+      <p>同容量、同房间、108 天连续对比：变频机比定频机最高节电 <b>44%</b>。<sup><a href="#ref9">[9]</a></sup> 卧室夜间负荷低、运行时间长，变频机的优势通常更明显。</p>
+
+      <h3>容量要合适，不是越大越好</h3>
+      <p>容量过大，会频繁启停、除湿不足；冷媒不足/过量、风量不足、膨胀阀不匹配，也会显著增加能耗。<sup><a href="#ref18">[18]</a></sup></p>
+      <p class="small muted">如果你正打算换空调：优先一级能效变频，按房间冷负荷选型，别盲目加匹数。</p>
+
+      <h3>为什么 16°C 不会更快</h3>
+      <p>设定温度是目标值。设 16°C 不会让压缩机变大，只会让它更晚停机。结果：更费电，而且容易过冷。正确做法是开机设 26–27°C，配合风扇，等房间降下来后再升到 27–28°C。</p>
+    </div>
+  </section>
+
+  <!-- 晚上怎么开 -->
+  <section id="night">
+    <h2>🕘 人走关机？晚上一直开？</h2>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>房间空着</h3>
+        <p>如果会空 <b>1 小时以上</b>，关机或把设定温度调高几度更省电。住宅“有人开、无人关”控制的模拟节能 <b>1–20%</b>，具体取决于离开时长、围护结构和控制策略。<sup><a href="#ref11">[11]</a></sup></p>
+        <p class="small muted">不要为了“回家就凉”把空调 22°C 开一整天；白天得热远大于空调维持低温的收益。</p>
+      </div>
+
+      <div class="card">
+        <h3>晚上睡觉</h3>
+        <p>连续在 <b>27°C</b> 低频运行，通常比“22°C 开开停停”更省、更稳。</p>
+        <p>如果后半夜室外明显变凉（室外 &lt;27°C、湿度 &lt;70%），可以用定时关机 + 风扇/开窗。日本的小样本实验显示：定时关空调 + 除湿通风，年轻女性睡眠效率仍维持 <b>96%</b>，皮肤温度只升约 0.5°C，觉醒没有增加。<sup><a href="#ref13">[13]</a></sup></p>
+        <p class="small muted">但这是特定通风系统和小样本；闷热夜别硬关。</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>夜间通风：看室外，不要看心情</h3>
+      <p>办公建筑的模拟显示，夜间通风可把冷量需求降低 <b>32.2–43.5%</b>，取决于气候区。<sup><a href="#ref12">[12]</a></sup> 卧室能不能用，取决于室外条件：</p>
+      <ul>
+        <li>室外温度低于室内、相对湿度 &lt;70%、空气质量/噪音/安全允许：可以用风扇 + 开窗替代或辅助空调。</li>
+        <li>中国南方闷热夜室外仍可能 28–30°C、湿度 80% 以上：开窗反而让空调更费电。</li>
+      </ul>
+
+      <h3>除湿模式：不是万能省电键</h3>
+      <p>现有同行评审证据不足，不能把它当成通用节能手段。除湿模式通常降低风量、让压缩机间歇运行，单位时间除湿量可能下降，且可能过冷。如果湿度是主要问题，优先“空调 26–27°C + 低风档 + 风扇”，而不是盲目切到除湿模式。</p>
+    </div>
+  </section>
+
+  <!-- 一晚流程 -->
+  <section id="flow">
+    <h2>🛏️ 照做就行：一晚流程</h2>
+
+    <div class="card">
+      <div class="timeline">
+        <div class="item">
+          <div class="time">18:30 · 下班回家</div>
+          <div class="what">拉上窗帘，关卧室门</div>
+          <div class="why">先把太阳挡在外面，别让房间先热透。西晒窗重点处理。</div>
+        </div>
+        <div class="item">
+          <div class="time">20:30 · 如果外面比屋里凉</div>
+          <div class="what">开窗 + 风扇通风 20–30 分钟，然后关窗</div>
+          <div class="why">把白天积的热气排出去；湿度高或外面雾霾就别开。</div>
+        </div>
+        <div class="item">
+          <div class="time">21:30 · 睡前 30 分钟</div>
+          <div class="what">开空调：26°C、低风档、扫风朝上</div>
+          <div class="why">先让房间降下来，但不要直吹床；26°C 是起点，不是终点。</div>
+        </div>
+        <div class="item">
+          <div class="time">22:30 · 准备睡</div>
+          <div class="what">升到 27°C，开风扇低档，换薄被/凉感床品</div>
+          <div class="why">用风扇和薄被补体感，把空调温度抬上去；这是最省电的一步。</div>
+        </div>
+        <div class="item">
+          <div class="time">00:00 · 入睡后</div>
+          <div class="what">睡眠模式，或手动再升 1°C，稳定在 27–28°C</div>
+          <div class="why">睡眠模式本质是“分阶段升温”；不同品牌曲线不同，别把它当省电保证。</div>
+        </div>
+        <div class="item">
+          <div class="time">03:00 · 后半夜</div>
+          <div class="what">室外 &lt;27°C、湿度 &lt;70%：定时关机 + 风扇/开窗；否则保持 27°C</div>
+          <div class="why">外面真的凉了才关；闷热夜关空调，睡眠质量会买单。</div>
+        </div>
+        <div class="item">
+          <div class="time">07:00 · 起床前</div>
+          <div class="what">开窗/风扇，别把空调降到 16°C</div>
+          <div class="why">16°C 不会更快，只会更费；起床前短时通风更舒服。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p><b>一句话版本：</b>白天挡热 → 睡前 26°C 预冷 → 睡着前 27°C + 风扇 + 薄被 → 后半夜看室外决定关不关。</p>
+    </div>
+  </section>
+
+  <!-- 自测 -->
+  <section id="test">
+    <h2>📝 最科学的办法：用 3 个晚上做自己的实验</h2>
+
+    <div class="card">
+      <p>每个人的寝具、体重、年龄、湿度适应都不一样。最科学的方法不是照搬某个数字，而是做一次<b>自身对照实验</b>——跟上面那些论文的设计一样，只不过样本是你自己。</p>
+
+      <div class="grid2">
+        <div>
+          <h3>准备</h3>
+          <ul>
+            <li>带计量功能的插座（能看 kWh）</li>
+            <li>温湿度计（放床头）</li>
+            <li>手机备忘录：记录入睡时间、夜醒次数、晨起感受</li>
+          </ul>
+        </div>
+        <div>
+          <h3>怎么做</h3>
+          <ul>
+            <li>连续 3 组，每组 2–3 晚</li>
+            <li>分别设 <b>26°C、27°C、28°C</b></li>
+            <li>其他条件不变：同一风扇、同一寝具、同一入睡时间</li>
+            <li>选“睡眠质量没有下降”的最高温度</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="info">
+        <p><b>为什么这比任何博主都准：</b>论文给的是平均值，你的卧室有你的窗、你的床、你的体温调节。3 个晚上就能看出趋势，而且成本几乎为零。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 辟谣 -->
+  <section id="myths2">
+    <h2>🚫 常见说法，一次说清</h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:26%">说法</th>
+            <th style="width:38%">真相</th>
+            <th style="width:36%">依据</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>26°C 是卧室最省电温度</b></td>
+            <td>不准确。26°C 是 2007 年国务院对<b>公共建筑</b>的夏季下限要求，不是住宅卧室的实验最优值。</td>
+            <td>国办发〔2007〕42号<sup><a href="#ref16">[16]</a></sup>；睡眠实验<sup><a href="#ref1">[1]</a><a href="#ref3">[3]</a></sup></td>
+          </tr>
+          <tr>
+            <td><b>设定 16°C 降温更快</b></td>
+            <td>错。设定值是目标，不是功率；只会延长运行、增加能耗。</td>
+            <td>空调控制机理</td>
+          </tr>
+          <tr>
+            <td><b>风扇能把房间吹凉</b></td>
+            <td>错。风扇降低的是皮肤热感觉，不是空气温度；它本身还发热。</td>
+            <td>ASHRAE 55<sup><a href="#ref5">[5]</a></sup>；吊扇现场研究<sup><a href="#ref4">[4]</a></sup></td>
+          </tr>
+          <tr>
+            <td><b>除湿模式一定更省电</b></td>
+            <td>证据不足。除湿模式风量低、压缩机间歇，单位时间除湿量可能下降，也可能过冷。</td>
+            <td>现有文献缺少卧室对照实验</td>
+          </tr>
+          <tr>
+            <td><b>洗滤网能省 20–30%</b></td>
+            <td>夸大。普通蒸发器积灰典型能效比 EER 下降 &lt;5%；严重冷凝器积灰才会到 20% 以上。</td>
+            <td>LBNL 盘管积灰研究<sup><a href="#ref8">[8]</a></sup>；微通道冷凝器实验<sup><a href="#ref7">[7]</a></sup></td>
+          </tr>
+          <tr>
+            <td><b>空调一直开更省电</b></td>
+            <td>看情况。空房超过 1 小时，关机/调高更省；睡觉时连续 27°C 通常优于 22°C 反复启停。</td>
+            <td>有人/无人控制模拟<sup><a href="#ref11">[11]</a></sup>；机理</td>
+          </tr>
+          <tr>
+            <td><b>外机遮阳一定好</b></td>
+            <td>不一定。遮阳但不能挡风；封闭遮阳棚会让热空气滞留，功耗反而增加。</td>
+            <td>科威特外机遮阳实验<sup><a href="#ref14">[14]</a></sup></td>
+          </tr>
+          <tr>
+            <td><b>每升 1°C 固定省 6–10%</b></td>
+            <td>没有普适常数。实验从几个百分点到几十个百分点都有，取决于气候、围护结构、设定区间。</td>
+            <td>睡眠实验<sup><a href="#ref1">[1]</a><a href="#ref2">[2]</a></sup>；变频对比<sup><a href="#ref9">[9]</a></sup></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 证据可靠性 -->
+  <section id="reliability">
+    <h2>🔍 这些结论有多可靠？</h2>
+
+    <div class="card">
+      <p>不是让你盲信，而是让你知道边界。</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:18%">可靠度</th>
+              <th style="width:42%">什么意思</th>
+              <th style="width:40%">本文里的例子</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="badge">真人实验</span></td>
+              <td>真人、卧室/睡眠舱、自身对照，直接测睡眠或能耗。</td>
+              <td>27°C 风扇 vs 24°C 空调；+3°C 凉感床品；23/26/30°C 睡眠舱。</td>
+            </tr>
+            <tr>
+              <td><span class="badge blue">现场实测</span></td>
+              <td>真实建筑里测能耗，但样本或场景有限。</td>
+              <td>99 台吊扇；成都内保温；变频 vs 定频 108 天。</td>
+            </tr>
+            <tr>
+              <td><span class="badge amber">模拟推算</span></td>
+              <td>用经过校准的软件算，不是直接测。</td>
+              <td>22→28°C 省 95%；夜间通风 32–43%；人走关机 1–20%。</td>
+            </tr>
+            <tr>
+              <td><span class="badge red">证据不足</span></td>
+              <td>缺少高质量对照实验，或场景不匹配。</td>
+              <td>除湿模式；外机遮阳的普遍效果。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>还要注意</h3>
+      <ul>
+        <li>睡眠实验样本通常只有 15–20 人、每条件 1–3 夜，属于短程自身对照；结论看趋势，别当精确预测。</li>
+        <li>“95% 节能”来自 EnergyPlus 模拟，不是实测；吊扇的 36% 来自商业/多户建筑，不能直接外推到卧室。</li>
+        <li>睡眠质量多用主观问卷/活动记录仪，不能完全代表多导睡眠图。</li>
+        <li>老年人、婴幼儿、孕妇、心血管/呼吸系统疾病患者对高温更敏感；不要为了省电把室温设得过高。</li>
+        <li>湿度 &gt;70% 时，仅靠风扇可能不够，空调的除湿作用仍然必要。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 参考文献 -->
+  <section id="refs">
+    <h2>📚 参考文献</h2>
+
+    <details open>
+      <summary>18 条出处（点开/收起）</summary>
+      <ol class="refs">
+        <li id="ref1">Tsang T.-W., Mui K.-W., Cheung K.-H., Wong L.-T. <b>An Energy-Efficient Approach for Thermal Comfort and Sleep Quality in Subtropical Bedrooms.</b> <i>Sustainability</i> 2025, 17, 2432. <a href="https://doi.org/10.3390/su17062432">https://doi.org/10.3390/su17062432</a></li>
+        <li id="ref2">Zaki S.A., Rosli M.F., Rijal H.B., Sadzli F.N.H., Hagishima A., Yakub F. <b>Effectiveness of a Cool Bed Linen for Thermal Comfort and Sleep Quality in Air-Conditioned Bedroom under Hot-Humid Climate.</b> <i>Sustainability</i> 2021, 13, 9099. <a href="https://doi.org/10.3390/su13169099">https://doi.org/10.3390/su13169099</a></li>
+        <li id="ref3">Lan L., Pan L., Lian Z., Huang H., Lin Y. <b>Experimental study on thermal comfort of sleeping people at different air temperatures.</b> <i>Building and Environment</i> 2014, 73, 24–31. <a href="https://doi.org/10.1016/j.buildenv.2013.11.024">https://doi.org/10.1016/j.buildenv.2013.11.024</a></li>
+        <li id="ref4">Miller C., Raftery P., Nakajima A., et al. <b>Cooling energy savings and occupant feedback in a two year retrofit evaluation of 99 automated ceiling fans staged with air conditioning.</b> <i>Energy and Buildings</i> 2021, 251, 111319. <a href="https://doi.org/10.1016/j.enbuild.2021.111319">https://doi.org/10.1016/j.enbuild.2021.111319</a></li>
+        <li id="ref5">de Dear R. <b>Recent Enhancements to the Adaptive Comfort Standard in ASHRAE 55-2010.</b> ANZAScA 2011. <a href="https://archscience.org/wp-content/uploads/2014/08/24P94.pdf">https://archscience.org/wp-content/uploads/2014/08/24P94.pdf</a>；并参见 ANSI/ASHRAE Standard 55-2017.</li>
+        <li id="ref6">Bai Z., Han Y., Zhuang D., Sun C. <b>How do we create a healthier thermal environment for sleep? A review of sleep thermal comfort and sleep quality.</b> <i>Building and Environment</i> 2025, 267, 112214. <a href="https://doi.org/10.1016/j.buildenv.2024.112214">https://doi.org/10.1016/j.buildenv.2024.112214</a></li>
+        <li id="ref7">Xu B., Shi J., Wang Y., Chen J., Li F., Li D. <b>Experimental Study of Fouling Performance of Air Conditioning System with Microchannel Heat Exchanger.</b> Purdue IRACC 2014, Key 2140. <a href="https://docs.lib.purdue.edu/iracc/1370/">https://docs.lib.purdue.edu/iracc/1370/</a></li>
+        <li id="ref8">Siegel J., Walker I., Sherman M. <b>Dirty air conditioners: Energy implications of coil fouling.</b> LBNL-49757, ACEEE Summer Study 2002. <a href="https://digital.library.unt.edu/ark:/67531/metadc736686/">https://digital.library.unt.edu/ark:/67531/metadc736686/</a></li>
+        <li id="ref9">Almogbel A., Alkasmoul F., Aldawsari Z., Alsulami J., Alsuwailem A. <b>Comparison of energy consumption between non-inverter and inverter-type air conditioner in Saudi Arabia.</b> <i>Energy Transitions</i> 2020, 4, 1–8. <a href="https://doi.org/10.1007/s41825-020-00033-y">https://doi.org/10.1007/s41825-020-00033-y</a></li>
+        <li id="ref10">Ye X., Lu J., Zhang T., Wang Y., Fukuda H. <b>Improvements in Energy Saving and Thermal Environment after Retrofitting with Interior Insulation in Intermittently Cooled Residences in Hot-Summer/Cold-Winter Zone of China: A Case Study in Chengdu.</b> <i>Energies</i> 2021, 14, 2776. <a href="https://doi.org/10.3390/en14102776">https://doi.org/10.3390/en14102776</a></li>
+        <li id="ref11">Munankarmi P., Maguire J., Jin X. <b>Occupancy-Based Controls for an All-Electric Residential Community in a Cold Climate.</b> IEEE PESGM 2022. <a href="https://doi.org/10.1109/PESGM48719.2022.9917067">https://doi.org/10.1109/PESGM48719.2022.9917067</a></li>
+        <li id="ref12">Veršić Z., Binički M., Nosil Mešić M. <b>Passive Night Cooling Potential in Office Buildings in Continental and Mediterranean Climate Zone in Croatia.</b> <i>Buildings</i> 2022, 12, 1207. <a href="https://doi.org/10.3390/buildings12081207">https://doi.org/10.3390/buildings12081207</a></li>
+        <li id="ref13">Tsuzuki K., Nabeshima Y., Kaku J., Shibayama Y. <b>Effects of air temperature and humidity on sleeping women by the ventilation and air-conditioner, Japan.</b> <i>E3S Web of Conferences</i> 2023, 396, 01093. <a href="https://doi.org/10.1051/e3sconf/202339601093">https://doi.org/10.1051/e3sconf/202339601093</a></li>
+        <li id="ref14">Waly M., Chakroun W., Al-Mutawa N.K. <b>Effect of pre-cooling of inlet air to condensers of air-conditioning units.</b> <i>International Journal of Energy Research</i> 2005, 29, 1251–1263. <a href="https://doi.org/10.1002/er.1091">https://doi.org/10.1002/er.1091</a></li>
+        <li id="ref15">Guo S., Yang H., Li Y., Zhang Y., Long E. <b>Energy saving effect and mechanism of cooling setting temperature increased by 1°C for residential buildings in different cities.</b> <i>Energy and Buildings</i> 2019, 202, 109335. <a href="https://doi.org/10.1016/j.enbuild.2019.109335">https://doi.org/10.1016/j.enbuild.2019.109335</a></li>
+        <li id="ref16">国务院办公厅. <b>关于严格执行公共建筑空调温度控制标准的通知（国办发〔2007〕42号）.</b> 2007-06-01. <a href="https://www.gov.cn/zwgk/2007-06/03/content_634614.htm">https://www.gov.cn/zwgk/2007-06/03/content_634614.htm</a></li>
+        <li id="ref17"><b>GB/T 18883-2022《室内空气质量标准》.</b> 国家市场监督管理总局/国家标准化管理委员会，2022-07-11 发布，2023-02-01 实施.</li>
+        <li id="ref18">Domanski P.A., Henderson H., Payne W.V. <b>Effect of installation faults on the performance of a split air conditioner.</b> IIR International Congress of Refrigeration 2015. <a href="https://doi.org/10.18462/iir.icr.2015.0597">https://doi.org/10.18462/iir.icr.2015.0597</a></li>
+      </ol>
+    </details>
+  </section>
+
+</main>
+
+<footer>
+  <p><b>说明：</b>本文是科普整理，不构成医疗建议。老人、婴幼儿、孕妇、慢性病患者，以及正在服用影响体温调节药物的人，请优先遵医嘱，不要为了省电硬扛高温。</p>
+  <p>整理时间：2026 年 10 月 · 仅收录同行评审论文、政府/标准文件与公开实验报告 · 数字均为文献条件，不是对你家的节能承诺。</p>
+  <p class="small">想存成 PDF：在浏览器里按 <b>Cmd/Ctrl + P</b>，选择“存储为 PDF”即可；打印样式已经做了适配。</p>
+</footer>
+
+<a class="backtop" href="#" aria-label="回到顶部">↑</a>
+
+</body>
+</html>
